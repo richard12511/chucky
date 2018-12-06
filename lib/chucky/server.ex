@@ -7,13 +7,13 @@ defmodule Chucky.Server do
 
   #server
   def init([]) do
-    :random.seed(:os.timestamp)
+    :rand.seed(:os.timestamp)
     facts = "facts.txt" |> File.read! |> String.split("\n")
 
     {:ok, facts}
   end
 
-  def handle_call(:fact, facts) do
+  def handle_call(:fact, _from, facts) do
     random_fact = facts |> Enum.shuffle |> List.first
     {:reply, random_fact, facts}
   end
